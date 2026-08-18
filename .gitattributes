@@ -1,0 +1,5 @@
+# These scripts run on Linux. CRLF would break them
+# (bash: $'\r': command not found), so keep LF everywhere.
+* text=auto eol=lf
+*.sh text eol=lf
+*.py text eol=lf

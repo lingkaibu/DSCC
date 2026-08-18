@@ -1,0 +1,48 @@
+DSCC -- Dual-Stream Cross-Anchor Correction
+Copyright 2026 Lingkai Bu, Qian Gao, Jun Fan, Guohui Ding, Zhenyu Yang, Yuteng Xiao, Jinyi Liang
+
+Licensed under the Apache License, Version 2.0. See the LICENSE file.
+
+-------------------------------------------------------------------------------
+Relationship to LLaVA
+-------------------------------------------------------------------------------
+
+This repository is NOT a redistribution of LLaVA. It contains only the files
+that this work adds to, or modifies in, an existing LLaVA-1.5 checkout:
+
+  ADDED (written by the authors of this repository)
+    llava/model/dual_stream/__init__.py
+    llava/model/dual_stream/cross_anchor_attention.py
+    llava/model/dual_stream/perception_contrast.py
+    llava/model/dual_stream/roi_utils.py
+    llava/model/dual_stream/text_encoder.py
+    llava/model/dual_stream/image_utils.py
+    prepare_v5_data.py,
+    train_full_v6.py, train_ablation_v6.py, setup_ablation_configs.py,
+    verify_fixes.py, check_v6_wandb_drift.py,
+    generate_captions.py, eval_chair_official.py, eval_chair.py, eval_pope.py,
+    eval_mirage.py, eval_mme_hallucination.py, eval_hallusion.py,
+    eval_mmhal.py, auto_judge_dualstream.py,
+    run_ca_v6_percfix_then_shutdown.sh
+
+  MODIFIED (derived from LLaVA, Copyright 2023 Haotian Liu et al.,
+            licensed under the Apache License, Version 2.0)
+    llava/model/language_model/llava_llama.py
+      - imports the dual_stream modules
+      - adds init_dual_stream_modules() to (re)initialise the added modules
+        after from_pretrained()
+      - registers the cross-attention injection at the cognition layers
+      - adds the perception-stream InfoNCE loss term to the training forward
+      - adds the ablation switches disable_cross_anchor / disable_perception_loss
+
+  UNMODIFIED upstream LLaVA files are deliberately NOT included here. Obtain
+  them from https://github.com/haotian-liu/LLaVA (v1.5) and copy the files of
+  this repository over that checkout, as described in README.md.
+
+LLaVA is licensed under the Apache License, Version 2.0:
+    https://github.com/haotian-liu/LLaVA/blob/main/LICENSE
+
+The base model LLaVA-1.5-7B, the LLaMA weights it derives from, the
+ShareGPT4V corpus and the COCO / POPE / MME / HallusionBench / MMHal-Bench
+datasets are each governed by their own licences and terms of use, which are
+not granted by this repository.
